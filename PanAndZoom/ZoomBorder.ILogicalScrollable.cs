@@ -30,7 +30,7 @@ public partial class ZoomBorder : ILogicalScrollable
         get => _offset;
         set
         {
-            Log($"[Offset] offset value: {value}");
+            ;
             if (_updating) return;
             _updating = true;
 
@@ -40,7 +40,7 @@ public partial class ZoomBorder : ILogicalScrollable
 
             _offset = value;
 
-            Log($"[Offset] offset: {_offset}, dx: {dx}, dy: {dy}");
+            ;
 
             if (dx != 0 || dy != 0)
             {
@@ -120,7 +120,7 @@ public partial class ZoomBorder : ILogicalScrollable
 
         var transformed = bounds.TransformToAABB(matrix);
 
-        Log($"[CalculateScrollable] source: {source}, bounds: {bounds}, transformed: {transformed}");
+        ;
 
         var width = transformed.Size.Width;
         var height = transformed.Size.Height;
@@ -173,7 +173,7 @@ public partial class ZoomBorder : ILogicalScrollable
 
         offset = new Vector(offsetX, offsetY);
 
-        Log($"[CalculateScrollable] Extent: {extent} | Offset: {offset} | Viewport: {viewport}");
+       
     }
 
     private void InvalidateScrollable()
@@ -184,11 +184,7 @@ public partial class ZoomBorder : ILogicalScrollable
 
         CalculateScrollable(_element.Bounds, Bounds.Size, _matrix, out var extent, out var viewport, out var offset);
 
-        Log($"[InvalidateScrollable] _element.Bounds: {_element.Bounds}, _matrix: {_matrix}");
-        Log($"[InvalidateScrollable] _extent: {_extent}, extent: {extent}, diff: {extent - _extent}");
-        Log($"[InvalidateScrollable] _offset: {_offset}, offset: {offset}, diff: {offset - _offset}");
-        Log($"[InvalidateScrollable] _viewport: {_viewport}, viewport: {viewport}, diff: {viewport - _viewport}");
-
+        
         _extent = extent;
         _offset = offset;
         _viewport = viewport;

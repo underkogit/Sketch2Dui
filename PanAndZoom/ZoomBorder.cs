@@ -11,6 +11,8 @@ using Avalonia.Input.GestureRecognizers;
 using Avalonia.Media;
 using Avalonia.Media.Transformation;
 using Avalonia.Reactive;
+using PanAndZoom.Events;
+using PanAndZoom.Model;
 using static System.Math;
 
 namespace PanAndZoom;
@@ -60,11 +62,7 @@ public partial class ZoomBorder : Border
             .Subscribe(new AnonymousObserver<bool>(_ => UpdateGestureRecognizers()));
     }
 
-    [Conditional("DEBUG")]
-    private static void Log(string message)
-    {
-        Debug.WriteLine(message);
-    }
+ 
 
     private static double ClampValue(double value, double minimum, double maximum)
     {
@@ -181,7 +179,7 @@ public partial class ZoomBorder : Border
 
     private void PanAndZoom_AttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
     {
-        Log($"[AttachedToVisualTree] {Name}");
+        ;
         ChildChanged(Child);
 
         // Add pointer event handlers
@@ -210,7 +208,7 @@ public partial class ZoomBorder : Border
 
     private void PanAndZoom_DetachedFromVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
     {
-        Log($"[DetachedFromVisualTree] {Name}");
+        ;
         DetachElement();
 
         // Remove pointer event handlers
@@ -232,7 +230,7 @@ public partial class ZoomBorder : Border
 
     private void Border_Magnified(object? sender, PointerDeltaEventArgs e)
     {
-        Log($"[Magnified] {Name} {e.Delta}");
+        ;
         var point = e.GetPosition(_element);
         ZoomDeltaTo(e.Delta.X, point.X, point.Y);
     }
@@ -242,7 +240,7 @@ public partial class ZoomBorder : Border
         if (!EnableGestures || !EnableGestureZoom || _element == null)
             return;
 
-        Log($"[PinchGesture] {Name} Scale: {e.Scale}");
+        ;
 
         var point = e.ScaleOrigin;
         var elementPoint = new Point(point.X * _element.Bounds.Width, point.Y * _element.Bounds.Height);
@@ -275,7 +273,7 @@ public partial class ZoomBorder : Border
         if (!EnableGestures)
             return;
 
-        Log($"[PinchGestureEnded] {Name}");
+        ;
 
         // Raise GestureEnded event
         var gestureArgs = new GestureEventArgs(
@@ -300,7 +298,7 @@ public partial class ZoomBorder : Border
         if (!EnableGestureTranslation || _element == null)
             return;
 
-        Log($"[ScrollGesture] {Name} Delta: {e.Delta}");
+        ;
 
         // Raise GestureStarted event
         var previousMatrix = _matrix;
@@ -329,7 +327,7 @@ public partial class ZoomBorder : Border
 
     private void Border_ScrollGestureEnded(object? sender, ScrollGestureEndedEventArgs e)
     {
-        Log($"[ScrollGestureEnded] {Name}");
+        ;
 
         // Raise GestureEnded event
         var gestureArgs = new GestureEventArgs(
@@ -391,13 +389,13 @@ public partial class ZoomBorder : Border
 
     private void BoundsChanged(Rect bounds)
     {
-        // Log($"[BoundsChanged] {bounds}");
+        // ;
         InvalidateScrollable();
     }
 
     private void ChildChanged(Control? element)
     {
-        Log($"[ChildChanged] {element}");
+        ;
 
         if (element != null && element != _element && _element != null) DetachElement();
 
@@ -532,11 +530,11 @@ public partial class ZoomBorder : Border
     /// </param>
     private void Invalidate(bool skipTransitions = false)
     {
-        Log("[Invalidate] Begin");
+        
 
         if (_element == null)
         {
-            Log("[Invalidate] End");
+            
             return;
         }
 
@@ -547,7 +545,7 @@ public partial class ZoomBorder : Border
         InvalidateElement(skipTransitions);
         RaiseZoomChanged();
 
-        Log("[Invalidate] End");
+        
     }
 
     /// <summary>
@@ -614,7 +612,7 @@ public partial class ZoomBorder : Border
 
         _updating = true;
 
-        Log("[SetMatrix]");
+        
         var previousMatrix = _matrix;
         _matrix = matrix;
         Invalidate(skipTransitions);
@@ -691,7 +689,7 @@ public partial class ZoomBorder : Border
 
         _updating = true;
 
-        Log("[Zoom]");
+        
         var previousMatrix = _matrix;
         var previousZoomX = _zoomX;
         var previousZoomY = _zoomY;
@@ -738,7 +736,7 @@ public partial class ZoomBorder : Border
 
         _updating = true;
 
-        Log("[ZoomTo]");
+        
         var previousMatrix = _matrix;
         var previousZoomX = _zoomX;
         var previousZoomY = _zoomY;
@@ -868,7 +866,7 @@ public partial class ZoomBorder : Border
 
         _updating = true;
 
-        Log("[PanDelta]");
+        
         var previousMatrix = _matrix;
         var previousOffsetX = _offsetX;
         var previousOffsetY = _offsetY;
@@ -909,7 +907,7 @@ public partial class ZoomBorder : Border
 
         _updating = true;
 
-        Log("[Pan]");
+        
         var previousMatrix = _matrix;
         var previousOffsetX = _offsetX;
         var previousOffsetY = _offsetY;
@@ -976,7 +974,7 @@ public partial class ZoomBorder : Border
 
         _updating = true;
 
-        Log("[ContinuePanTo]");
+        
         var previousMatrix = _matrix;
         var previousOffsetX = _offsetX;
         var previousOffsetY = _offsetY;
@@ -1025,7 +1023,7 @@ public partial class ZoomBorder : Border
 
         _updating = true;
 
-        Log($"[None] {panelWidth}x{panelHeight} {elementWidth}x{elementHeight}");
+        ;
         if (_element == null)
         {
             _updating = false;
@@ -1056,7 +1054,7 @@ public partial class ZoomBorder : Border
 
         _updating = true;
 
-        Log($"[Fill] {panelWidth}x{panelHeight} {elementWidth}x{elementHeight}");
+        ;
         if (_element == null)
         {
             _updating = false;
@@ -1087,7 +1085,7 @@ public partial class ZoomBorder : Border
 
         _updating = true;
 
-        Log($"[Uniform] {panelWidth}x{panelHeight} {elementWidth}x{elementHeight}");
+        ;
         if (_element == null)
         {
             _updating = false;
@@ -1118,7 +1116,7 @@ public partial class ZoomBorder : Border
 
         _updating = true;
 
-        Log($"[UniformToFill] {panelWidth}x{panelHeight} {elementWidth}x{elementHeight}");
+        ;
         if (_element == null)
         {
             _updating = false;

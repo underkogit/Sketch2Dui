@@ -3,7 +3,7 @@
 
 using Avalonia;
 
-namespace PanAndZoom;
+namespace PanAndZoom.Events;
 
 /// <summary>
 ///     Zoom operation event arguments.

@@ -2,8 +2,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using Avalonia;
+using PanAndZoom.Model;
 
-namespace PanAndZoom;
+namespace PanAndZoom.Events;
 
 /// <summary>
 ///     Stretch mode changed event arguments.

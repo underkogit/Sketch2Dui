@@ -5,6 +5,8 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Media.Transformation;
+using PanAndZoom.Events;
+using PanAndZoom.Model;
 
 namespace PanAndZoom;
 
