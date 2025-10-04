@@ -4,57 +4,69 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Sketch2Dui.ViewModels"
              xmlns:panAndZoom="clr-namespace:PanAndZoom;assembly=PanAndZoom"
+             xmlns:controls="clr-namespace:Sketch2Dui.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Sketch2Dui.Views.MainView"
+             x:Class="Sketch2Dui.Views.MainView" Background="#262626"
              x:DataType="vm:MainViewModel">
     <Design.DataContext>
-        
+
         <vm:MainViewModel />
     </Design.DataContext>
 
-    <Grid RowDefinitions="Auto,12,Auto,12,*,12"  >
-         
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Center" Grid.Row="2"  >
-            <TextBlock Text="PanButton:" VerticalAlignment="Center"/>
-            <ComboBox ItemsSource="{x:Static panAndZoom:ZoomBorder.ButtonNames}"
-                      SelectedItem="{Binding #ZoomBorder.PanButton, Mode=TwoWay}"
-                      Margin="2">
-            </ComboBox>
-            <TextBlock Text="Stretch:" VerticalAlignment="Center"/>
-            <ComboBox ItemsSource="{x:Static panAndZoom:ZoomBorder.StretchModes}"
-                      SelectedItem="{Binding #ZoomBorder.Stretch, Mode=TwoWay}"
-                      Margin="2">
-            </ComboBox>
-            <TextBlock Text="ZoomSpeed:" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding #ZoomBorder.ZoomSpeed, Mode=TwoWay}"
-                     TextAlignment="Center" Width="50" Margin="2"/>
-            <CheckBox IsChecked="{Binding #ZoomBorder.EnablePan}"
-                      Content="EnablePan" VerticalAlignment="Center"/>
-            <CheckBox IsChecked="{Binding #ZoomBorder.EnableZoom}"
-                      Content="EnableZoom" VerticalAlignment="Center"/>
-        </StackPanel>
-        <ScrollViewer Grid.Row="4"  
+    <Grid ColumnDefinitions="*,1,300">
+
+
+        <ScrollViewer Grid.Column="0"
                       VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Auto">
             <panAndZoom:ZoomBorder x:Name="ZoomBorder" Stretch="None" ZoomSpeed="1.2"
-                                   Background="SlateBlue" ClipToBounds="True" Focusable="True"
+                                   Background="Transparent" ClipToBounds="True" Focusable="True"
                                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                <Canvas Name="CanvasArea" Background="LightGray" Width="300" Height="300">
+                <controls:Canvas2D x:Name="CanvasArea" Background="#181818" Width="1920" Height="1080">
                     <Rectangle x:Name="Rect1" Width="100" Height="100" Fill="Red"
                                Canvas.Left="200" Canvas.Top="200"
-                               PointerPressed="OnPointerPressed"
-                               PointerMoved="OnPointerMoved"
-                               PointerReleased="OnPointerReleased"/>
-            
+                                />
+
                     <Ellipse x:Name="Circle1" Width="120" Height="120" Fill="Blue"
                              Canvas.Left="400" Canvas.Top="400"
-                             PointerPressed="OnPointerPressed"
-                             PointerMoved="OnPointerMoved"
-                             PointerReleased="OnPointerReleased"/>
-                </Canvas>
-            </panAndZoom:ZoomBorder>  
+                              />
+                </controls:Canvas2D>
+            </panAndZoom:ZoomBorder>
         </ScrollViewer>
-    </Grid> 
+        <GridSplitter Grid.Column="1" Background="#ffffff" ResizeDirection="Columns" />
+        <ScrollViewer Grid.Column="2" Margin="5">
+            <StackPanel Orientation="Vertical">
+                <StackPanel>
+                    <TextBlock Text="PanButton:" VerticalAlignment="Center" />
+                    <ComboBox ItemsSource="{x:Static panAndZoom:ZoomBorder.ButtonNames}"
+                              SelectedItem="{Binding #ZoomBorder.PanButton, Mode=TwoWay}"
+                              Margin="2">
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Stretch:" VerticalAlignment="Center" />
+                    <ComboBox ItemsSource="{x:Static panAndZoom:ZoomBorder.StretchModes}"
+                              SelectedItem="{Binding #ZoomBorder.Stretch, Mode=TwoWay}"
+                              Margin="2">
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="ZoomSpeed:" />
+                </StackPanel>
+                <StackPanel>
+                    <TextBox Text="{Binding #ZoomBorder.ZoomSpeed, Mode=TwoWay}"
+                             TextAlignment="Center" Width="50" Margin="2" />
+                    <CheckBox IsChecked="{Binding #ZoomBorder.EnablePan}"
+                              Content="EnablePan" VerticalAlignment="Center" />
+                    <CheckBox IsChecked="{Binding #ZoomBorder.EnableZoom}"
+                              Content="EnableZoom" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel>
+                    <Button Content="Add button" Click="Button_OnClick"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
 
 </UserControl>
