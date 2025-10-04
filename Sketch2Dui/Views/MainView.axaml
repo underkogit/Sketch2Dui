@@ -12,18 +12,10 @@
         <vm:MainViewModel />
     </Design.DataContext>
 
-    <Grid RowDefinitions="Auto,12,Auto,12,*,12" ColumnDefinitions="50,*,50">
-        <StackPanel Orientation="Vertical"
-                    HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1">
-            <TextBlock Text="F - Fill"/>
-            <TextBlock Text="U - Uniform"/>
-            <TextBlock Text="R - Reset"/>
-            <TextBlock Text="T - Toggle Stretch Mode"/>
-            <TextBlock Text="Mouse Wheel - Zoom to Point"/>
-            <TextBlock Text="Mouse Left Button Down - Pan"/>
-        </StackPanel>
+    <Grid RowDefinitions="Auto,12,Auto,12,*,12"  >
+         
         <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1">
+                    HorizontalAlignment="Center" Grid.Row="2"  >
             <TextBlock Text="PanButton:" VerticalAlignment="Center"/>
             <ComboBox ItemsSource="{x:Static panAndZoom:ZoomBorder.ButtonNames}"
                       SelectedItem="{Binding #ZoomBorder.PanButton, Mode=TwoWay}"
@@ -42,7 +34,7 @@
             <CheckBox IsChecked="{Binding #ZoomBorder.EnableZoom}"
                       Content="EnableZoom" VerticalAlignment="Center"/>
         </StackPanel>
-        <ScrollViewer Grid.Row="4" Grid.Column="1"
+        <ScrollViewer Grid.Row="4"  
                       VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Auto">
             <panAndZoom:ZoomBorder x:Name="ZoomBorder" Stretch="None" ZoomSpeed="1.2"
